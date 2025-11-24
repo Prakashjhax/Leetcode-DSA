@@ -1,16 +1,26 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int candidate = 0;
-        int count = 0;
+      int candidate, count=0, n= nums.size();
+      for(int i=0; i<n; i++)
+      {
+        if(count == 0)
+        {
+            count=1;
+            candidate=nums[i];
 
-        for(int x : nums) {
-            if(count == 0)
-                candidate = x;
+        }
+        else
+        {
+            if(candidate==nums[i])
+            count ++;
+            else 
+            count --; 
 
-            count += (x == candidate) ? 1 : -1;
         }
 
-        return candidate;
+      }
+      return candidate;
+
     }
 };
