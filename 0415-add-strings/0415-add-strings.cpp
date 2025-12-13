@@ -1,23 +1,36 @@
 class Solution {
 public:
     string addStrings(string num1, string num2) {
-        int i = num1.size() - 1;
-        int j = num2.size() - 1;
-        int carry = 0;
-        string ans = "";
+        string ans;
+        int index1 = num1.size()-1, index2 = num2.size()-1;
+        int sum, carry = 0;
 
-        while (i >= 0 || j >= 0 || carry) {
-            int sum = carry;
+        // index2 >= 0
+        while(index2 >= 0)
+        {
+            sum = (index1 >= 0 ? num1[index1]-'0' : 0)  // FIX
+                + (num2[index2]-'0') + carry;
 
-            if (i >= 0) sum += num1[i] - '0';
-            if (j >= 0) sum += num2[j] - '0';
-
-            ans.push_back((sum % 10) + '0');
             carry = sum / 10;
+            char c = '0' + sum % 10;
+            ans += c;
 
-            i--;
-            j--;
+            index2--;
+            index1--;
         }
+
+        // index1 >= 0
+        while(index1 >= 0)
+        {
+            sum = (num1[index1]-'0') + carry;
+            carry = sum / 10;
+            char c = '0' + sum % 10;
+            ans += c;
+            index1--;
+        }
+
+        if(carry)
+            ans += '1';
 
         reverse(ans.begin(), ans.end());
         return ans;
